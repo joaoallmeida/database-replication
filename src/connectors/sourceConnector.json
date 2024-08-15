@@ -1,0 +1,16 @@
+{
+  "name": "postgre-source-connector",
+  "config": {
+    "tasks.max": "3",
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.user": "root",
+    "database.dbname": "sinarm",
+    "database.hostname": "primarydb",
+    "database.password": "primarydb2024",
+    "database.port": "5432",
+    "schema.include.list": "public,raw,refined",
+    "topic.prefix": "sourcedb",
+    "plugin.name": "pgoutput"
+  }
+}
+

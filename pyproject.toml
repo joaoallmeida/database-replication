@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "database-replication"
+version = "0.1.0"
+description = ""
+authors = ["joaoallmeida <joaoallmeida96@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+ipykernel = "^6.29.5"
+polars = "^1.4.1"
+sqlescapy = "^1.0.1"
+requests = "^2.32.3"
+psycopg2-binary = "^2.9.9"
+adbc-driver-postgresql = "^1.1.0"
+pyarrow = "^17.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
