@@ -89,22 +89,6 @@ services:
     networks:
       - sys_db_network
 
-  # ksqldb:
-  #   image: confluentinc/ksqldb-server:latest
-  #   hostname: ksqldb
-  #   container_name: ksqldb
-  #   depends_on:
-  #     - kafka
-  #   ports:
-  #     - 6066:8088
-  #   environment:
-  #     KSQL_LISTENERS: http://0.0.0.0:8088
-  #     KSQL_BOOTSTRAP_SERVERS: kafka:9092
-  #     KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
-  #     KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
-  #   networks:
-  #     - sys_db_network
-
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
@@ -112,9 +96,8 @@ services:
       DYNAMIC_CONFIG_ENABLED: 'true'
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: first
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: primary
       KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://connect:8083
-      # KAFKA_CLUSTERS_0_KSQLDBSERVER: http://ksqldb:8088
     ports:
       - 4040:8080
     depends_on:

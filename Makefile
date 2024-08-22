@@ -10,7 +10,7 @@ endef
 container:
 	@echo -e "\n:: Building docker containers ::\n"
 	docker compose -f docker/docker-compose.yaml up -d
-	
+
 	@echo -e "\n:: Waiting 30s to services up ::\n"
 	@sleep 30
 
@@ -25,7 +25,7 @@ py-dependencies:
 
 environment:
 	@echo -e "\n:: Creating Env File ::\n"
-	@echo -e "POSTGRE_HOST=$(call get_container_ip, primarydb)\nPOSTGRE_HOST_REPLICA=$(call get_container_ip, replicadb)\nPOSTGRE_USER=root\nPOSTGRE_PASSWORD=primarydb2024\nPOSTGRE_DATABASE=sinarm" >> .env
+	echo -e "PGHOST=$(call get_container_ip, primarydb)\nRPGHOST=$(call get_container_ip, replicadb)\nPGUSER=root\nPGPASSWORD=primarydb2024\nPGDATABASE=sinarm" >> .env
 	@echo -e "\n:: .env file created! ::\n"
 
 destroy:

@@ -8,12 +8,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 ipykernel = "^6.29.5"
-polars = "^1.4.1"
 sqlescapy = "^1.0.1"
 requests = "^2.32.3"
 psycopg2-binary = "^2.9.9"
-adbc-driver-postgresql = "^1.1.0"
 pyarrow = "^17.0.0"
+polars = "^1.5.0"
+unidecode = "^1.3.8"
+sqlalchemy = "^2.0.32"
+pandas = "^2.2.2"
 
 
 [build-system]
