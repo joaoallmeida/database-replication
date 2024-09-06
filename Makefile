@@ -1,7 +1,8 @@
 SHELL := /bin/bash
 
-SOURCE_JSON := $(shell cat src/connectors/sourceConnector.json)
-SINK_JSON := $(shell cat src/connectors/sinkConnector.json)
+SOURCE_JSON := $(shell cat src/connectors/source-thordb-connector.json)
+SINK_MJOLNIRDB_JSON := $(shell cat src/connectors/sink-mjolnirdb-connector.json)
+SINK_STORMBREAKERDB_JSON := $(shell cat src/connectors/sink-stormbreakerdb-connector.json)
 
 define get_container_ip
 $(shell docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(1))
@@ -14,10 +15,11 @@ container:
 	@echo -e "\n:: Waiting 30s to services up ::\n"
 	@sleep 30
 
-connector: container
+connector:
 	@echo -e "\n:: Setting up Kafka connectors ::\n"
 	curl -i -s -X POST 127.0.0.1:8083/connectors/ -H "Accept:application/json" -H "Content-Type:application/json" -d '$(SOURCE_JSON)'
-	curl -i -s -X POST 127.0.0.1:8083/connectors/ -H "Accept:application/json" -H "Content-Type:application/json" -d '$(SINK_JSON)'
+	curl -i -s -X POST 127.0.0.1:8083/connectors/ -H "Accept:application/json" -H "Content-Type:application/json" -d '$(SINK_MJOLNIRDB_JSON)'
+	curl -i -s -X POST 127.0.0.1:8083/connectors/ -H "Accept:application/json" -H "Content-Type:application/json" -d '$(SINK_STORMBREAKERDB_JSON)'
 
 py-dependencies:
 	@echo -e "\n:: Install Python Dependencies ::\n"
@@ -25,7 +27,7 @@ py-dependencies:
 
 environment:
 	@echo -e "\n:: Creating Env File ::\n"
-	echo -e "PGHOST=$(call get_container_ip, primarydb)\nRPGHOST=$(call get_container_ip, replicadb)\nPGUSER=root\nPGPASSWORD=primarydb2024\nPGDATABASE=sinarm" >> .env
+	echo -e "THOR_DBHOST=$(call get_container_ip, thordb)\nMJOLNIR_DBHOST=$(call get_container_ip, mjolnirdb)\nSTORMBREAKER_DBHOST=$(call get_container_ip, stormbreakerdb)\nTHOR_DBUSER=root\nTHOR_DBPASSWORD=thordb2024\nTHOR_DATABASE=sinarm\nDATA_SOURCE_URL=https://servicos.dpf.gov.br/dadosabertos/SINARM_CSV/OCORRENCIAS/OCORRENCIAS_2024.csv" >> .env
 	@echo -e "\n:: .env file created! ::\n"
 
 destroy:

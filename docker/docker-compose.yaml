@@ -1,32 +1,50 @@
 name: sys-db-replication
 
 services:
-  primarydb:
-      container_name: primarydb
-      hostname: primarydb
+  thordb:
+      container_name: thordb
+      hostname: thordb
       image: postgres:alpine
       volumes:
-        - postgresPrimaryDB:/var/lib/postgresql/data
+        - thor-data:/var/lib/postgresql/data
         - ${PWD}/src/configs/postgresql.conf:/usr/local/share/postgresql/postgresql.conf.sample
         - ${PWD}/src/scripts/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
       environment:
         POSTGRES_USER: root
-        POSTGRES_PASSWORD: primarydb2024
+        POSTGRES_PASSWORD: thordb2024
+        POSTGRES_DB: sinarm
       restart: unless-stopped
       networks:
         - sys_db_network
 
-  replicadb:
+  mjolnirdb:
       image: postgres:alpine
-      container_name: replicadb
-      hostname: replicadb
+      container_name: mjolnirdb
+      hostname: mjolnirdb
       volumes:
-        - postgresReplicaDB:/var/lib/postgresql/data
+        - mjolnir-data:/var/lib/postgresql/data
         - ${PWD}/src/configs/postgresql.conf:/usr/local/share/postgresql/postgresql.conf.sample
-        - ${PWD}/src/scripts/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+        # - ${PWD}/src/scripts/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
       environment:
         POSTGRES_USER: root
-        POSTGRES_PASSWORD: replicadb2024
+        POSTGRES_PASSWORD: mjolnirdb2024
+        POSTGRES_DB: sinarm
+      restart: unless-stopped
+      networks:
+        - sys_db_network
+
+  stormbreakerdb:
+      image: postgres:alpine
+      container_name: stormbreakerdb
+      hostname: stormbreakerdb
+      volumes:
+        - stormbreaker-data:/var/lib/postgresql/data
+        - ${PWD}/src/configs/postgresql.conf:/usr/local/share/postgresql/postgresql.conf.sample
+        # - ${PWD}/src/scripts/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+      environment:
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: stormbreakerdb2024
+        POSTGRES_DB: sinarm
       restart: unless-stopped
       networks:
         - sys_db_network
@@ -47,7 +65,7 @@ services:
       - sys_db_network
 
   kafka:
-    image: bitnami/kafka:latest
+    image: confluentinc/cp-kafka:latest
     container_name: kafka
     hostname: kafka
     ports:
@@ -58,33 +76,54 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_ADVERTISED_HOST_NAME: kafka:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
     volumes:
-      - kafkadb:/bitnami
+      - kafkadb:/var/lib/kafka/data/
     restart: unless-stopped
     networks:
       - sys_db_network
 
-  connect:
-    image: debezium/connect
-    container_name: debezium-connect
-    environment:
-        BOOTSTRAP_SERVERS: kafka:9092
-        GROUP_ID: 1
-        CONFIG_STORAGE_TOPIC: my-connect-configs
-        OFFSET_STORAGE_TOPIC: my-connect-offsets
-        STATUS_STORAGE_TOPIC: my_connect_statuses
-    links:
+  schema-registry:
+      image: confluentinc/cp-schema-registry:latest
+      container_name: schema-registry
+      links:
         - zookeeper
         - kafka
-        - primarydb
-        - replicadb
-    ports:
-        - 8083:8083
-    depends_on:
+      environment:
+        SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
+        SCHEMA_REGISTRY_HOST_NAME: schema-registry
+        SCHEMA_REGISTRY_LISTENERS: http://schema-registry:6060
+        SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+      ports:
+        - 6060:6060
+      networks:
+        - sys_db_network
+
+  connect:
+    image: quay.io/debezium/connect:2.7
+    container_name: debezium-connect
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: my-connect-configs
+      OFFSET_STORAGE_TOPIC: my-connect-offsets
+      STATUS_STORAGE_TOPIC: my_connect_statuses
+    volumes:
+      - ${PWD}/src/scripts/getPlugins.sh:/kafka/getPlugins.sh
+    entrypoint: ['/kafka/getPlugins.sh']
+    links:
       - zookeeper
       - kafka
+      - thordb
+      - mjolnirdb
+      - stormbreakerdb
+      - schema-registry
+    ports:
+      - 8083:8083
     restart: unless-stopped
     networks:
       - sys_db_network
@@ -98,6 +137,7 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
       KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: primary
       KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://connect:8083
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:6060
     ports:
       - 4040:8080
     depends_on:
@@ -116,8 +156,10 @@ volumes:
     driver: local
   zookeeperdb:
     driver: local
-  postgresPrimaryDB:
+  thor-data:
     driver: local
-  postgresReplicaDB:
+  mjolnir-data:
+    driver: local
+  stormbreaker-data:
     driver: local
 
