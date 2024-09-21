@@ -2,7 +2,6 @@
   "name": "postgre-source-thordb-connector",
     "config": {
       "tasks.max": 3,
-      "poll.interval.ms": 60000,
       "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
       "database.user": "root",
       "database.dbname": "sinarm",

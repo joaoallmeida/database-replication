@@ -1,0 +1,12 @@
+sinarm_dbt:
+  outputs:
+    dev:
+      host: "{{ env_var('THOR_DBHOST') }}"
+      user: "{{ env_var('THOR_DBUSER') }}"
+      pass: "{{ env_var('THOR_DBPASSWORD') }}"
+      dbname: sinarm
+      schema: raw
+      port: 5432
+      threads: 10
+      type: postgres
+  target: dev

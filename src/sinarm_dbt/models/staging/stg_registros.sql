@@ -1,0 +1,18 @@
+SELECT 
+    {{ dbt_utils.generate_surrogate_key(['MUNICIPIO', 'STATUS_REGISTRO', 'ESPECIE_ARMA', 'MARCA_ARMA', 'CATEGORIA']) }} AS SK_REGISTRO
+    ,ID_REGISTRO
+    ,ANO_EMISSAO	
+    ,MES_MISSAO
+    ,UF
+    ,MUNICIPIO
+    ,STATUS_REGISTRO
+    ,ESPECIE_ARMA
+    ,MARCA_ARMA
+    ,CALIBRE_ARMA
+    ,SEXO
+    ,CATEGORIA
+    ,TOTAL
+    ,DT_CARGA
+    ,CURRENT_TIMESTAMP AS DT_CARGA_STG
+FROM {{source('raw','registros')}}
+

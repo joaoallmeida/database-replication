@@ -113,8 +113,8 @@ services:
       OFFSET_STORAGE_TOPIC: my-connect-offsets
       STATUS_STORAGE_TOPIC: my_connect_statuses
     volumes:
-      - ${PWD}/src/scripts/getPlugins.sh:/kafka/getPlugins.sh
-    entrypoint: ['/kafka/getPlugins.sh']
+      - ${PWD}/src/scripts/getAvroPackages.sh:/kafka/getAvroPackages.sh
+    entrypoint: ['/kafka/getAvroPackages.sh']
     links:
       - zookeeper
       - kafka

@@ -27,7 +27,7 @@ py-dependencies:
 
 environment:
 	@echo -e "\n:: Creating Env File ::\n"
-	echo -e "THOR_DBHOST=$(call get_container_ip, thordb)\nMJOLNIR_DBHOST=$(call get_container_ip, mjolnirdb)\nSTORMBREAKER_DBHOST=$(call get_container_ip, stormbreakerdb)\nTHOR_DBUSER=root\nTHOR_DBPASSWORD=thordb2024\nTHOR_DATABASE=sinarm\nDATA_SOURCE_URL=https://servicos.dpf.gov.br/dadosabertos/SINARM_CSV/OCORRENCIAS/OCORRENCIAS_2024.csv" >> .env
+	echo -e "THOR_DBHOST=$(call get_container_ip, thordb)\nMJOLNIR_DBHOST=$(call get_container_ip, mjolnirdb)\nSTORMBREAKER_DBHOST=$(call get_container_ip, stormbreakerdb)\nTHOR_DBUSER=root\nTHOR_DBPASSWORD=thordb2024\nTHOR_DATABASE=sinarm" >> .env
 	@echo -e "\n:: .env file created! ::\n"
 
 destroy:
