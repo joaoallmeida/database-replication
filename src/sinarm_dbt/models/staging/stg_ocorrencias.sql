@@ -1,11 +1,11 @@
-SELECT 
-    {{ dbt_utils.generate_surrogate_key(['MUNICIPIO', 'TIPO_OCORRENCIA', 'TIPO_OCORRENCIA', 'MARCA_ARMA']) }} AS SK_OCORRENCIA
-    ,ID_OCORRENCIA
-    ,MUNICIPIO
+SELECT
+    ID_OCORRENCIA
+    ,{{ replace_empty('UF') }} AS UF
+    ,{{ replace_empty('MUNICIPIO') }} AS MUNICIPIO
+    ,{{ replace_empty('ESPECIE_ARMA') }} AS ESPECIE_ARMA
+    ,{{ replace_empty('MARCA_ARMA') }} AS MARCA_ARMA
+    ,{{ replace_empty('CALIBRE_ARMA') }} AS CALIBRE_ARMA
     ,TIPO_OCORRENCIA
-    ,CALIBRE_ARMA
-    ,ESPECIE_ARMA
-    ,MARCA_ARMA
     ,ANO_OCORRENCIA
     ,MES_OCORRENCIA
     ,TOTAL

@@ -1,15 +1,14 @@
 SELECT 
-    {{ dbt_utils.generate_surrogate_key(['MUNICIPIO', 'STATUS_REGISTRO', 'ESPECIE_ARMA', 'MARCA_ARMA', 'CATEGORIA']) }} AS SK_REGISTRO
-    ,ID_REGISTRO
+    ID_REGISTRO
     ,ANO_EMISSAO	
     ,MES_MISSAO
-    ,UF
-    ,MUNICIPIO
+    ,{{ replace_empty('UF') }} AS UF
+    ,{{ replace_empty('MUNICIPIO') }} AS MUNICIPIO
+    ,{{ replace_empty('ESPECIE_ARMA') }} AS ESPECIE_ARMA
+    ,{{ replace_empty('MARCA_ARMA') }} AS MARCA_ARMA
+    ,{{ replace_empty('CALIBRE_ARMA') }} AS CALIBRE_ARMA
+    ,{{ replace_empty('SEXO') }} AS SEXO
     ,STATUS_REGISTRO
-    ,ESPECIE_ARMA
-    ,MARCA_ARMA
-    ,CALIBRE_ARMA
-    ,SEXO
     ,CATEGORIA
     ,TOTAL
     ,DT_CARGA

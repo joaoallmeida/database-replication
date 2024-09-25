@@ -22,3 +22,7 @@ models:
       +materialized: table
       +schema: staging
       +on_table_exists: replace
+
+    refined:
+      +materialized: "{{ 'incremental' if target.name == 'prod' else 'table' }}"
+      +schema: refined
