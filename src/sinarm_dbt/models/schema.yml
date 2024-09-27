@@ -1,0 +1,170 @@
+
+models:
+  - name: dim_abrangencia
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_abrangencia
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: abrangencia
+        data_type: varchar
+           
+  - name: dim_tipo_porte
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_tipo
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: tipo
+        data_type: varchar
+           
+  - name: dim_marca
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_marca
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: marca_arma
+        data_type: varchar
+           
+  - name: dim_status
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_status
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: status
+        data_type: varchar
+           
+  - name: dim_ocorrencia
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_tipo_ocorrencia
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: tipo_ocorrencia
+        data_type: varchar
+           
+  - name: dim_uf
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_uf
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: uf
+        data_type: varchar
+           
+  - name: dim_calibre
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_calibre
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: calibre_arma
+        data_type: varchar
+           
+  - name: dim_especie_arma
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_especie
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: especie_arma
+        data_type: varchar
+           
+  - name: dim_categoria
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_categoria
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: categoria
+        data_type: varchar
+           
+           
+  - name: dim_genero
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_genero
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: genero
+        data_type: varchar
+           
+  - name: dim_municipio
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: id_municipio
+        data_type: varchar
+        constraints:
+          - type: primary_key
+      - name: municipio
+        data_type: varchar
+           
+  # - name: fat_registros
+  #   config:
+  #     contract:
+  #       enforced: true
+  #   columns:
+  #     - name: id_registro
+  #       data_type: int
+  #       constraints:
+  #         - type: primary_key
+  #     - name: registro
+  #       data_type: int
+
+  # - name: fat_ocorrencia
+  #   config:
+  #     contract:
+  #       enforced: true
+  #   columns:
+  #     - name: id_ocorrencia
+  #       data_type: int
+  #       constraints:
+  #         - type: primary_key
+  #     - name: ocorrencia
+  #       data_type: int
+           
+  # - name: fat_portes
+  #   config:
+  #     contract:
+  #       enforced: true
+  #   columns:
+  #     - name: id_porte
+  #       data_type: int
+  #       constraints:
+  #         - type: primary_key
+  #     - name: porte
+  #       data_type: int
