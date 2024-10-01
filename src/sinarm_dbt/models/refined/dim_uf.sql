@@ -6,7 +6,8 @@ WITH cte_dim_uf AS (
     SELECT UF FROM {{ ref('stg_registros') }}
 )
 SELECT DISTINCT
-    {{ dbt_utils.generate_surrogate_key(['UF']) }} AS ID_UF
-    ,UF
+    {{ generate_identity_column('UF') }} AS ID
+    ,UF AS DESC_UF
+    ,CAST(CURRENT_TIMESTAMP AS TIMESTAMP) AS DT_CARGA
 FROM cte_dim_uf
 ORDER BY 2

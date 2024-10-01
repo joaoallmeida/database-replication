@@ -1,5 +1,5 @@
 SELECT 
-     ID_PORTE
+     ID
     ,ANO_EMISSAO
     ,MES_EMISSAO
     ,{{ replace_empty('UF') }} AS UF

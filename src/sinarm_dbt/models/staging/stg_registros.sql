@@ -1,6 +1,6 @@
-SELECT 
-    ID_REGISTRO
-    ,ANO_EMISSAO	
+SELECT
+    ID
+    ,ANO_EMISSAO
     ,MES_MISSAO AS MES_EMISSAO
     ,{{ replace_empty('UF') }} AS UF
     ,{{ replace_empty('MUNICIPIO') }} AS MUNICIPIO
@@ -14,4 +14,3 @@ SELECT
     ,DT_CARGA
     ,CURRENT_TIMESTAMP AS DT_CARGA_STG
 FROM {{source('raw','registros')}}
-

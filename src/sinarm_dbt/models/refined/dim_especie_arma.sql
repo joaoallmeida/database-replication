@@ -6,7 +6,8 @@ WITH cte_dim_especie_arma AS (
     SELECT ESPECIE_ARMA FROM {{ ref('stg_registros') }}
 )
 SELECT DISTINCT
-    {{ dbt_utils.generate_surrogate_key(['ESPECIE_ARMA']) }} AS ID_ESPECIE
-    ,ESPECIE_ARMA
+    {{ generate_identity_column('ESPECIE_ARMA') }} AS ID
+    ,ESPECIE_ARMA AS DESC_ESPECIE
+    ,CAST(CURRENT_TIMESTAMP AS TIMESTAMP) AS DT_CARGA
 FROM cte_dim_especie_arma
 ORDER BY 2

@@ -2,7 +2,8 @@ WITH cte_dim_tipo_porte AS (
     SELECT DISTINCT TIPO FROM {{ ref('stg_portes') }}
 )
 SELECT
-    {{ dbt_utils.generate_surrogate_key(['TIPO']) }} AS ID_TIPO
-    , TIPO
+   {{ generate_identity_column('TIPO') }} AS ID
+    , TIPO AS DESC_TIPO
+    ,CAST(CURRENT_TIMESTAMP AS TIMESTAMP) AS DT_CARGA
 FROM cte_dim_tipo_porte
 ORDER BY 2

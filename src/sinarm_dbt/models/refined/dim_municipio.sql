@@ -6,7 +6,8 @@ WITH cte_dim_municipio AS (
     SELECT MUNICIPIO FROM {{ ref('stg_registros') }}
 )
 SELECT DISTINCT
-    {{ dbt_utils.generate_surrogate_key(['MUNICIPIO']) }} AS ID_MUNICIPIO
-    , MUNICIPIO
+    {{ generate_identity_column('MUNICIPIO') }} AS ID
+    , MUNICIPIO AS DESC_MUNICIPIO
+    , CAST(CURRENT_TIMESTAMP AS TIMESTAMP) AS DT_CARGA
 FROM cte_dim_municipio
 ORDER BY 2

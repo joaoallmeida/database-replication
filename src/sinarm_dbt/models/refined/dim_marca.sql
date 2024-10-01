@@ -6,7 +6,8 @@ WITH cte_dim_marca AS (
     SELECT MARCA_ARMA FROM {{ ref('stg_registros') }}
 )
 SELECT DISTINCT
-    {{ dbt_utils.generate_surrogate_key(['MARCA_ARMA']) }} AS ID_MARCA
-    ,MARCA_ARMA
+    {{ generate_identity_column('MARCA_ARMA') }} AS ID
+    , MARCA_ARMA AS  DESC_MARCA
+    , CAST(CURRENT_TIMESTAMP AS TIMESTAMP) AS DT_CARGA
 FROM cte_dim_marca
 ORDER BY 2

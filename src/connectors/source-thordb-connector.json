@@ -8,6 +8,7 @@
       "database.hostname": "thordb",
       "database.password": "thordb2024",
       "database.port": "5432",
+      "poll.interval.ms": "60000",
       "schema.include.list": "raw,refined",
       "topic.prefix": "sourcedb",
       "plugin.name": "pgoutput",

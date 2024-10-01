@@ -1,8 +1,10 @@
 {% macro replace_empty(col) %}
 
-    CASE 
-        WHEN ( {{ col }} IS NULL ) OR ( {{ col }} = '' ) OR ( {{ col }} = ' ' ) THEN 'N/A'
+    CASE
+        WHEN ( {{ col }} IS NULL ) THEN 'N/A'
+        WHEN ( {{ col }} = '' ) THEN 'N/A'
+        WHEN ( {{ col }} = ' ' ) THEN 'N/A'
         ELSE {{ col }}
     END
-    
+
 {% endmacro %}

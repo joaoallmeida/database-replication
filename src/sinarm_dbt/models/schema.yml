@@ -5,166 +5,306 @@ models:
       contract:
         enforced: true
     columns:
-      - name: id_abrangencia
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: abrangencia
+          - type: not_null
+      - name: DESC_ABRANGENCIA
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
   - name: dim_tipo_porte
     config:
       contract:
         enforced: true
     columns:
-      - name: id_tipo
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: tipo
+          - type: not_null
+      - name: DESC_TIPO
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
   - name: dim_marca
     config:
       contract:
         enforced: true
     columns:
-      - name: id_marca
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: marca_arma
+          - type: not_null
+      - name: DESC_MARCA
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
   - name: dim_status
     config:
       contract:
         enforced: true
     columns:
-      - name: id_status
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: status
+          - type: not_null
+      - name: DESC_STATUS
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
   - name: dim_ocorrencia
     config:
       contract:
         enforced: true
     columns:
-      - name: id_tipo_ocorrencia
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: tipo_ocorrencia
+          - type: not_null
+      - name: DESC_TIPO_OCORRENCIA
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
   - name: dim_uf
     config:
       contract:
         enforced: true
     columns:
-      - name: id_uf
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: uf
+          - type: not_null
+      - name: DESC_UF
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
   - name: dim_calibre
     config:
       contract:
         enforced: true
     columns:
-      - name: id_calibre
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: calibre_arma
+          - type: not_null
+      - name: DESC_CALIBRE
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
   - name: dim_especie_arma
     config:
       contract:
         enforced: true
     columns:
-      - name: id_especie
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: especie_arma
+          - type: not_null
+      - name: DESC_ESPECIE
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
+
   - name: dim_categoria
     config:
       contract:
         enforced: true
     columns:
-      - name: id_categoria
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: categoria
+          - type: not_null
+      - name: DESC_CATEGORIA
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
   - name: dim_genero
     config:
       contract:
         enforced: true
     columns:
-      - name: id_genero
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: genero
+          - type: not_null
+      - name: DESC_GENERO
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
+      - name: DT_CARGA
+        data_type: timestamp
+
   - name: dim_municipio
     config:
       contract:
         enforced: true
     columns:
-      - name: id_municipio
-        data_type: varchar
+      - name: ID
+        data_type: bigint
         constraints:
           - type: primary_key
-      - name: municipio
+          - type: not_null
+      - name: DESC_MUNICIPIO
+        data_tests:
+          - unique
+          - not_null
         data_type: varchar
-           
-  # - name: fat_registros
-  #   config:
-  #     contract:
-  #       enforced: true
-  #   columns:
-  #     - name: id_registro
-  #       data_type: int
-  #       constraints:
-  #         - type: primary_key
-  #     - name: registro
-  #       data_type: int
+      - name: DT_CARGA
+        data_type: timestamp
 
-  # - name: fat_ocorrencia
-  #   config:
-  #     contract:
-  #       enforced: true
-  #   columns:
-  #     - name: id_ocorrencia
-  #       data_type: int
-  #       constraints:
-  #         - type: primary_key
-  #     - name: ocorrencia
-  #       data_type: int
-           
-  # - name: fat_portes
-  #   config:
-  #     contract:
-  #       enforced: true
-  #   columns:
-  #     - name: id_porte
-  #       data_type: int
-  #       constraints:
-  #         - type: primary_key
-  #     - name: porte
-  #       data_type: int
+
+  - name: fat_registros
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: ID
+        data_type: bigint
+        constraints:
+          - type: primary_key
+          - type: not_null
+      - name: ID_UF
+        data_type: bigint
+      - name: ID_MUNICIPIO
+        data_type: bigint
+      - name: ID_CALIBRE
+        data_type: bigint
+      - name: ID_ESPECIE
+        data_type: bigint
+      - name: ID_MARCA
+        data_type: bigint
+      - name: ID_CATEGORIA
+        data_type: bigint
+      - name: ID_GENERO
+        data_type: bigint
+      - name: TOTAL
+        data_type: int
+      - name: ANO_EMISSAO
+        data_type: int
+      - name: MES_EMISSAO
+        data_type: int
+      - name: DT_CARGA
+        data_type: timestamp
+      - name: DT_CARGA_STG
+        data_type: timestamp
+
+  - name: fat_ocorrencia
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: ID
+        data_type: bigint
+        constraints:
+          - type: primary_key
+          - type: not_null
+      - name: ID_UF
+        data_type: bigint
+      - name: ID_MUNICIPIO
+        data_type: bigint
+      - name: ID_TIPO_OCORRENCIA
+        data_type: bigint
+      - name: ID_CALIBRE
+        data_type: bigint
+      - name: ID_ESPECIE
+        data_type: bigint
+      - name: ID_MARCA
+        data_type: bigint
+      - name: TOTAL
+        data_type: int
+      - name: MAIS_1000_MIL_HAB
+        data_type: int
+      - name: ANO_OCORRENCIA
+        data_type: int
+      - name: MES_OCORRENCIA
+        data_type: int
+      - name: DT_CARGA
+        data_type: timestamp
+      - name: DT_CARGA_STG
+        data_type: timestamp
+
+  - name: fat_portes
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: ID
+        data_type: bigint
+        constraints:
+          - type: primary_key
+          - type: not_null
+      - name: ID_UF
+        data_type: bigint
+      - name: ID_MUNICIPIO
+        data_type: bigint
+      - name: ID_ABRANGENCIA
+        data_type: bigint
+      - name: ID_CALIBRE
+        data_type: bigint
+      - name: ID_ESPECIE
+        data_type: bigint
+      - name: ID_MARCA
+        data_type: bigint
+      - name: ID_TIPO
+        data_type: bigint
+      - name: ID_GENERO
+        data_type: bigint
+      - name: ID_STATUS
+        data_type: bigint
+      - name: TOTAL
+        data_type: int
+      - name: ANO_EMISSAO
+        data_type: int
+      - name: MES_EMISSAO
+        data_type: int
+      - name: DT_CARGA
+        data_type: timestamp
+      - name: DT_CARGA_STG
+        data_type: timestamp

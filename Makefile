@@ -37,3 +37,7 @@ destroy:
 
 build: container connector environment
 	@echo -e "\n:: Build complete! ::\n"
+
+run:
+	.venv/bin/python  src/pipe/extraction.py
+	dbt build --project-dir src/sinarm_dbt --profiles-dir src/sinarm_dbt

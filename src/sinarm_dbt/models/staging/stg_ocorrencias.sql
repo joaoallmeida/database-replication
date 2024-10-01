@@ -1,5 +1,5 @@
 SELECT
-    ID_OCORRENCIA
+    ID
     ,{{ replace_empty('UF') }} AS UF
     ,{{ replace_empty('MUNICIPIO') }} AS MUNICIPIO
     ,{{ replace_empty('ESPECIE_ARMA') }} AS ESPECIE_ARMA
