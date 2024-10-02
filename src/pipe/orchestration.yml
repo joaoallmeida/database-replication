@@ -1,8 +1,50 @@
 pipeline:
-  - sources:
+
+  ingestion:
     - name: ocorrencias
       url: "https://servicos.dpf.gov.br/dadosabertos/SINARM_CSV/OCORRENCIAS/OCORRENCIAS_2024.csv"
     - name: portes
       url: "https://servicos.dpf.gov.br/dadosabertos/SINARM_CSV/PORTES/PORTES_2024.csv"
     - name: registros
       url: "https://servicos.dpf.gov.br/dadosabertos/SINARM_CSV/REGISTROS/REGISTROS_com_categoria_2024.csv"
+
+  transformation:
+    - name: ocorrencias
+      string_columns:
+        - MUNICIPIO
+        - TIPO_OCORRENCIA
+        - CALIBRE_ARMA
+        - ESPECIE_ARMA
+        - MARCA_ARMA
+      integer_columns:
+        - ANO_OCORRENCIA
+        - MES_OCORRENCIA
+        - TOTAL
+
+    - name: portes
+      string_columns:
+        - MUNICIPIO
+        - TIPO
+        - STATUS
+        - ABRANGENCIA
+        - ESPECIE_ARMA
+        - MARCA_ARMA
+        - CALIBRE_ARMA
+      integer_columns:
+        - MES_MISSAO
+        - ANO_EMISSAO
+        - TOTAL
+
+    - name: registros
+      string_columns:
+          - MUNICIPIO
+          - STATUS_REGISTRO
+          - ESPECIE_ARMA
+          - MARCA_ARMA
+          - CALIBRE_ARMA
+          - SEXO
+          - CATEGORIA
+      integer_columns:
+          - ANO_EMISSAO
+          - MES_MISSAO
+          - TOTAL

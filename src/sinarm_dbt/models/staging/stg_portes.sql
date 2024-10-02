@@ -1,7 +1,7 @@
 SELECT 
      ID
     ,ANO_EMISSAO
-    ,MES_EMISSAO
+    ,MES_MISSAO AS MES_EMISSAO
     ,{{ replace_empty('UF') }} AS UF
     ,{{ replace_empty('MUNICIPIO') }} AS MUNICIPIO
     ,{{ replace_empty('ESPECIE_ARMA') }} AS ESPECIE_ARMA

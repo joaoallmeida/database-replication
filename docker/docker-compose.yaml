@@ -24,7 +24,6 @@ services:
       volumes:
         - mjolnir-data:/var/lib/postgresql/data
         - ${PWD}/src/configs/postgresql.conf:/usr/local/share/postgresql/postgresql.conf.sample
-        # - ${PWD}/src/scripts/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
       environment:
         POSTGRES_USER: root
         POSTGRES_PASSWORD: mjolnirdb2024
@@ -40,7 +39,6 @@ services:
       volumes:
         - stormbreaker-data:/var/lib/postgresql/data
         - ${PWD}/src/configs/postgresql.conf:/usr/local/share/postgresql/postgresql.conf.sample
-        # - ${PWD}/src/scripts/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
       environment:
         POSTGRES_USER: root
         POSTGRES_PASSWORD: stormbreakerdb2024
