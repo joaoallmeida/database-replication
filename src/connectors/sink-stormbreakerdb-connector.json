@@ -22,7 +22,7 @@
     "transforms":"unwrap,RemoveString",
     "transforms.unwrap.type":"io.debezium.transforms.ExtractNewRecordState",
     "transforms.unwrap.add.fields.prefix": "",
-    "transforms.unwrap.add.fields": "source.ts_ms:kafka_timestamp",
+    "transforms.unwrap.add.fields": "source.ts_ms:replicated_at",
     "transforms.unwrap.drop.tombstones": false,
     "transforms.RemoveString.type": "org.apache.kafka.connect.transforms.RegexRouter",
     "transforms.RemoveString.regex": "sourcedb.(.*)",

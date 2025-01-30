@@ -12,8 +12,8 @@ container:
 	@echo -e "\n:: Building docker containers ::\n"
 	docker compose -f docker/docker-compose.yaml up -d
 
-	@echo -e "\n:: Waiting 30s to services up ::\n"
-	@sleep 30
+	@echo -e "\n:: Waiting 60s to services up ::\n"
+	@sleep 60
 
 connector:
 	@echo -e "\n:: Setting up Kafka connectors ::\n"
@@ -31,7 +31,8 @@ environment:
 	@echo -e "\n:: .env file created! ::\n"
 
 destroy:
-	docker compose -f docker/docker-compose.yaml down -v
+	docker compose -f docker/docker-compose.yaml down -v --rmi all
+	docker builder prune -f
 	rm .env
 	@echo -e "\n:: Cleanup complete! ::\n"
 
@@ -39,5 +40,5 @@ build: container connector environment
 	@echo -e "\n:: Build complete! ::\n"
 
 run:
-	.venv/bin/python  src/pipe/extraction.py
+	.venv/bin/python  src/main.py
 	dbt build --project-dir src/sinarm_dbt --profiles-dir src/sinarm_dbt
