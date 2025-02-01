@@ -87,6 +87,17 @@ Data is replicated from the source database, ThorDB, to the target databases, Mj
 
 ## Install & Config
 
+### Requirements
+
+This project requires:
+
+* DBT
+* Python 3.12
+* Kafka & Connect
+* Postgres
+* Docker
+* Poetry
+
 ### Makefile (Linux Only)
 
 * ```make build```: Build the docker images, containers and set kafka connectors.
@@ -97,6 +108,34 @@ Data is replicated from the source database, ThorDB, to the target databases, Mj
 ### Manual Installation
 
 For manual installations, you can copy the commands found in the **Makefile** and execute them in the terminal.
+
+### Environment Variable
+
+If you install this project without Makefile, you need create the .env file with following values:
+
+```bash
+THOR_DBHOST= # Get the ip from container
+THOR_DBUSER=root
+THOR_DBPASSWORD=thordb2024
+THOR_DATABASE=sinarm
+MJOLNIR_DBHOST= # Get the ip from container
+STORMBREAKER_DBHOST= # Get the ip from container
+```
+<!-- ### Harlequin command's
+
+```shell
+harlequin -a postgres "postgres://root:thordb2024@$THOR_DBHOST:5432/sinarm"
+harlequin -a postgres "postgres://root:mjolnirdb2024@$MJOLNIR_DBHOST:5432/sinarm"
+harlequin -a postgres "postgres://root:stormbreakerdb2024@$STORMBREAKER_DBHOST:5432/sinarm"
+```
+
+### SQL Query
+
+this is example how to convert replicat_at columns to timestamp.
+
+```sql
+SELECT * , TO_TIMESTAMP(CAST(replicated_at AS BIGINT)/1000) AS replicated_at
+``` -->
 
 ## Author
 
